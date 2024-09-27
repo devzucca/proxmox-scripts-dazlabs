@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
-source <(curl -s https://raw.githubusercontent.com/tteck/Proxmox/main/misc/build.func)
-# Copyright (c) 2021-2024 tteck
-# Author: tteck (tteckster)
+source <(curl -s https://raw.githubusercontent.com/devzucca/proxmox-scripts-dazlabs/refs/heads/main/utils/build.func)
+
+# Copyright (c) 2024 zuccadev
+# Author: 
 # License: MIT
-# https://github.com/tteck/Proxmox/raw/main/LICENSE
+# https://github.com/devzucca/proxmox-scripts-dazlabs/tree/main
 
 function header_info {
 clear
