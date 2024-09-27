@@ -503,7 +503,7 @@ install_script() {
 
 start() {
   if command -v pveversion >/dev/null 2>&1; then
-    if ! (whiptail --backtitle "Proxmox VE Helper Scripts" --title "${APP} LXC" --yesno "To ensure the safety of your system, please only use https://tteck.github.io/Proxmox/\n\nThis will create a New ${APP} LXC. Proceed?" 10 58); then
+    if ! (whiptail --backtitle "Proxmox VE Helper Scripts" --title "${APP} LXC" --yesno "To ensure the safety of your system, please only use https://github.com/devzucca/proxmox-scripts-dazlabs/\n\nThis will create a New ${APP} LXC. Proceed?" 10 58); then
       clear
       echo -e "⚠  User exited script \n"
       exit
@@ -640,11 +640,13 @@ EOF'
 # This function sets the description of the container.
 description() {
   IP=$(pct exec "$CTID" ip a s dev eth0 | awk '/inet / {print $2}' | cut -d/ -f1)
-  pct set "$CTID" -description "<div align='center'><a href='https://Helper-Scripts.com' target='_blank' rel='noopener noreferrer'><img src='https://raw.githubusercontent.com/tteck/Proxmox/main/misc/images/logo-81x112.png'/></a>
+  pct set "$CTID" -description "<div align='center'><a href='https://github.com/devzucca/proxmox-scripts-dazlabs' target='_blank' rel='noopener noreferrer'><img src='https://raw.githubusercontent.com/devzucca/proxmox-scripts-dazlabs/main/images/Dazlabs.png'/></a>
 
   # ${APP} LXC
 
-  <a href='https://ko-fi.com/proxmoxhelperscripts'><img src='https://img.shields.io/badge/&#x2615;-Buy me a coffee-blue' /></a>
+  <a href="https://github.com/devzucca">
+    <img src="https://go-skill-icons.vercel.app/api/icons?i=proxmox" />
+  </a>
   </div>"
   if [[ -f /etc/systemd/system/ping-instances.service ]]; then
     systemctl start ping-instances.service

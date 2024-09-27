@@ -174,83 +174,15 @@ EOF
 
 # mensaje para el ct
 # This function modifies the message of the day (motd) and SSH settings
-#motd_ssh() {
-#  echo "export TERM='xterm-256color'" >>/root/.bashrc
-#  echo -e "$APPLICATION LXC provided by https://dazlabs.com/\n" >/etc/motd
-#  chmod -x /etc/update-motd.d/*
-#  if [[ "${SSH_ROOT}" == "yes" ]]; then
-#    sed -i "s/#PermitRootLogin prohibit-password/PermitRootLogin yes/g" /etc/ssh/sshd_config
-#    systemctl restart sshd
-#  fi
-#}
-
 motd_ssh() {
   echo "export TERM='xterm-256color'" >>/root/.bashrc
-
-  echo "" >/etc/motd
-  echo "CURRENT_USER=$(whoami)" >>/etc/motd
-  echo "LAST_LOGIN_INFO=$(last -n 1 -a | head -n 1)" >>/etc/motd
-  echo "LAST_LOGIN_USER=$(echo $LAST_LOGIN_INFO | awk '{print $1}')" >>/etc/motd
-  echo "LAST_LOGIN_TTY=$(echo $LAST_LOGIN_INFO | awk '{print $2}')" >>/etc/motd
-  echo "LAST_LOGIN_DATE=$(echo $LAST_LOGIN_INFO | awk '{print $3, $4, $5, $6, $7, $8}')" >>/etc/motd
-  echo "LAST_LOGIN_IP=$(echo $LAST_LOGIN_INFO | awk '{print $10}') ">>/etc/motd
-
-  echo "NODE_NAME=$(hostname)" >>/etc/motd
-  echo "IP_ADDRESS=$(hostname -I | awk '{print $1}') ">>/etc/motd
-  echo "MACHINE=$(uname -m)" >>/etc/motd
-  echo "KERNEL_RELEASE=$(uname -r)" >>/etc/motd
-  echo "KERNEL_NAME=$(uname -s)" >>/etc/motd
-
-  echo -e 
-  "*********************************************************************\n\
-  *      Script Proxmox provided by https://dazlabs.com/               *\n\
-  *                                                                    *\n\
-  *      Bienvenido a:                                                 *\n\
-  *                                                                    *\n\
-  *      ██████╗  █████╗ ███████╗██╗      █████╗ ██████╗ ███████╗      *\n\
-  *      ██╔══██╗██╔══██╗╚══███╔╝██║     ██╔══██╗██╔══██╗██╔════╝      *\n\
-  *      ██║  ██║███████║  ███╔╝ ██║     ███████║██████╔╝███████╗      *\n\
-  *      ██║  ██║██╔══██║ ███╔╝  ██║     ██╔══██║██╔══██╗╚════██║      *\n\
-  *      ██████╔╝██║  ██║███████╗███████╗██║  ██║██████╔╝███████║      *\n\
-  *      ╚═════╝ ╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═╝╚═════╝ ╚══════╝      *\n\
-  *                                                                    *\n\
-  *      Autorización y acceso solo para personal autorizado.          *\n\
-  *      Todas tas actividades en este sistema son monitoreadas        *\n\
-  *      y registradas. El uso no autorizado resultará en acciones     *\n\
-  *      disciplinarias severas, incluidas medidas legales.            *\n\
-  *      Recuerde: Mantenga su contraseña segura y no la comparta      *\n\
-  *      con nadie. Si sospecha de cualquier actividad                 *\n\
-  *      inusual, informe de inmediato a los directores.               *\n\
-  *                                                                    *\n\
-  *              Gracias por mantener dazlabs seguro!                  *\n\
-  *                                                                    *\n\
-  **********************************************************************\n\n\
-  **********************************************************************\n\
-  * \n\
-  * Información del Sistema:\n\
-  *  - Hostname: $NODE_NAME\n\
-  *  - IP Address: $IP_ADDRESS\n\
-  *  - Machine: $MACHINE\n\
-  *  - Kernel Release: $KERNEL_RELEASE\n\
-  *  - Kernel Name: $KERNEL_NAME\n\
-  * \n\
-  * Información del usuario:\n\
-  *  - Usuario: $CURRENT_USER\n\
-  *  - Último Login:\n\
-  *    - Usuario: $LAST_LOGIN_USER\n\
-  *    - Fecha: $LAST_LOGIN_DATE\n\
-  *    - TTY: $LAST_LOGIN_TTY\n\
-  *    - IP: $LAST_LOGIN_IP\n\
-  * \n\
-  **********************************************************************\n" >>/etc/motd
-
-  chmod +x /etc/update-motd.d/*
+  echo -e "$APPLICATION LXC provided by https://helper-scripts.com/\n" >/etc/motd
+  chmod -x /etc/update-motd.d/*
   if [[ "${SSH_ROOT}" == "yes" ]]; then
     sed -i "s/#PermitRootLogin prohibit-password/PermitRootLogin yes/g" /etc/ssh/sshd_config
     systemctl restart sshd
   fi
 }
-
 
 # This function customizes the container by modifying the getty service and enabling auto-login for the root user
 customize() {
