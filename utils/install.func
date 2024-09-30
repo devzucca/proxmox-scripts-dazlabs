@@ -183,6 +183,15 @@ motd_ssh() {
 
   # Escribir el contenido literal en /etc/motd usando heredoc
   cat <<'EOF' >> /etc/motd
+
+CURRENT_USER=$(whoami)
+
+LAST_LOGIN_INFO=$(last -n 1 -a | head -n 1)
+LAST_LOGIN_USER=$(echo $LAST_LOGIN_INFO | awk '{print $1}')
+LAST_LOGIN_TTY=$(echo $LAST_LOGIN_INFO | awk '{print $2}')
+LAST_LOGIN_DATE=$(echo $LAST_LOGIN_INFO | awk '{print $3, $4, $5, $6, $7, $8}')
+LAST_LOGIN_IP=$(echo $LAST_LOGIN_INFO | awk '{print $10}')
+
 CURRENT_USER=$(whoami)
 LAST_LOGIN_INFO=$(last -n 1 -a | head -n 1)
 LAST_LOGIN_USER=$(echo $LAST_LOGIN_INFO | awk '{print $1}')
@@ -197,48 +206,53 @@ KERNEL_RELEASE=$(uname -r)
 KERNEL_NAME=$(uname -s)
 EOF
   
-  # Escribir el banner en /etc/motd
-  echo -e "**********************************************************************\n\
-*      Script Proxmox provided by https://dazlabs.com/               *\n\
-*                                                                    *\n\
-*      Bienvenido a:                                                 *\n\
-*                                                                    *\n\
-*      ██████╗  █████╗ ███████╗██╗      █████╗ ██████╗ ███████╗      *\n\
-*      ██╔══██╗██╔══██╗╚══███╔╝██║     ██╔══██╗██╔══██╗██╔════╝      *\n\
-*      ██║  ██║███████║  ███╔╝ ██║     ███████║██████╔╝███████╗      *\n\
-*      ██║  ██║██╔══██║ ███╔╝  ██║     ██╔══██║██╔══██╗╚════██║      *\n\
-*      ██████╔╝██║  ██║███████╗███████╗██║  ██║██████╔╝███████║      *\n\
-*      ╚═════╝ ╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═╝╚═════╝ ╚══════╝      *\n\
-*                                                                    *\n\
-*      Autorización y acceso solo para personal autorizado.          *\n\
-*      Todas tas actividades en este sistema son monitoreadas        *\n\
-*      y registradas. El uso no autorizado resultará en acciones     *\n\
-*      disciplinarias severas, incluidas medidas legales.            *\n\
-*      Recuerde: Mantenga su contraseña segura y no la comparta      *\n\
-*      con nadie. Si sospecha de cualquier actividad                 *\n\
-*      inusual, informe de inmediato a los directores.               *\n\
-*                                                                    *\n\
-*              Gracias por mantener dazlabs seguro!                  *\n\
-*                                                                    *\n\
-**********************************************************************\n\n\
-**********************************************************************\n\
-* \n\
-* Información del Sistema:\n\
-*  - Hostname: \$NODE_NAME\n\
-*  - IP Address: \$IP_ADDRESS\n\
-*  - Machine: \$MACHINE\n\
-*  - Kernel Release: \$KERNEL_RELEASE\n\
-*  - Kernel Name: \$KERNEL_NAME\n\
-* \n\
-* Información del usuario:\n\
-*  - Usuario: \$CURRENT_USER\n\
-*  - Último Login:\n\
-*    - Usuario: \$LAST_LOGIN_USER\n\
-*    - Fecha: \$LAST_LOGIN_DATE\n\
-*    - TTY: \$LAST_LOGIN_TTY\n\
-*    - IP: \$LAST_LOGIN_IP\n\
-* \n\
-**********************************************************************\n" >> /etc/motd
+echo 'echo "  **********************************************************************"' >> /etc/motd
+echo 'echo "  *      Script Proxmox provided by https://dazlabs.com/               *"' >> /etc/motd
+echo 'echo "  *                                                                    *"' >> /etc/motd
+echo 'echo "  *      Bienvenido a:                                                 *"' >> /etc/motd
+echo 'echo "  *                                                                    *"' >> /etc/motd
+echo 'echo "  *      ██████╗  █████╗ ███████╗██╗      █████╗ ██████╗ ███████╗      *"' >> /etc/motd
+echo 'echo "  *      ██╔══██╗██╔══██╗╚══███╔╝██║     ██╔══██╗██╔══██╗██╔════╝      *"' >> /etc/motd
+echo 'echo "  *      ██║  ██║███████║  ███╔╝ ██║     ███████║██████╔╝███████╗      *"' >> /etc/motd
+echo 'echo "  *      ██║  ██║██╔══██║ ███╔╝  ██║     ██╔══██║██╔══██╗╚════██║      *"' >> /etc/motd
+echo 'echo "  *      ██████╔╝██║  ██║███████╗███████╗██║  ██║██████╔╝███████║      *"' >> /etc/motd
+echo 'echo "  *      ╚═════╝ ╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═╝╚═════╝ ╚══════╝      *"' >> /etc/motd
+echo 'echo "  *                                                                    *"' >> /etc/motd
+echo 'echo "  *      Autorización y acceso solo para personal autorizado.          *"' >> /etc/motd
+echo 'echo "  *      Todas tas actividades en este sistema son monitoreadas        *"' >> /etc/motd
+echo 'echo "  *      y registradas. El uso no autorizado resultará en acciones     *"' >> /etc/motd
+echo 'echo "  *      disciplinarias severas, incluidas medidas legales.            *"' >> /etc/motd
+echo 'echo "  *      Recuerde: Mantenga su contraseña segura y no la comparta      *"' >> /etc/motd
+echo 'echo "  *      con nadie. Si sospecha de cualquier actividad                 *"' >> /etc/motd
+echo 'echo "  *      inusual, informe de inmediato a los directores.               *"' >> /etc/motd
+echo 'echo "  *                                                                    *"' >> /etc/motd
+echo 'echo "  *              Gracias por mantener dazlabs seguro!                  *"' >> /etc/motd
+echo 'echo "  *                                                                    *"' >> /etc/motd
+echo 'echo "  **********************************************************************"' >> /etc/motd
+
+
+
+# Imprimir info del sistema
+echo 'echo ""' >> /etc/motd
+echo 'echo "  *********************************************************************"' >> /etc/motd
+echo 'echo "  * "' >> /etc/motd
+echo 'echo "  * Información del Sistema:"' >> /etc/motd
+echo 'echo "  *  - Hostname: $NODE_NAME"' >> /etc/motd
+echo 'echo "  *  - IP Address: $IP_ADDRESS"' >> /etc/motd
+echo 'echo "  *  - Machine: $MACHINE"' >> /etc/motd
+echo 'echo "  *  - Kernel Release: $KERNEL_RELEASE"' >> /etc/motd
+echo 'echo "  *  - Kernel Name: $KERNEL_NAME"' >> /etc/motd
+echo 'echo "  * "
+echo 'echo "  * Información del usuario:"' >> /etc/motd
+echo 'echo "  *  - Usuario: $CURRENT_USER"' >> /etc/motd
+echo 'echo "  *  - Último Login:"' >> /etc/motd
+echo 'echo "  *    - Usuario: $LAST_LOGIN_USER"' >> /etc/motd
+echo 'echo "  *    - Fecha: $LAST_LOGIN_DATE"' >> /etc/motd
+echo 'echo "  *    - TTY: $LAST_LOGIN_TTY"' >> /etc/motd
+echo 'echo "  *    - IP: $LAST_LOGIN_IP"' >> /etc/motd
+echo 'echo "  * "
+echo 'echo "  **********************************************************************"' >> /etc/motd
+echo 'echo ""' >> /etc/motd
 
   chmod +x /etc/update-motd.d/*
   if [[ "${SSH_ROOT}" == "yes" ]]; then
