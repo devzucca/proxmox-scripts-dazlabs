@@ -178,23 +178,23 @@ EOF
 motd_ssh() {
   echo "export TERM='xterm-256color'" >>/root/.bashrc
   
-  # Limpiar el archivo /etc/motd
   echo -e "" >/etc/motd
 
-cat <<'EOF' > /etc/update-motd.d/00-welcomeDazmin
+  #script welcomeDazmin /etc/update-motd.d/00-welcomeDazmin
+  cat <<'EOF' > /etc/update-motd.d/00-welcomeDazmin
 #!/bin/bash
 
 echo "  **********************************************************************"
 echo "  *      Script Proxmox provided by https://dazlabs.com/               *"
 echo "  *                                                                    *"
-echo "  *      Bienvenido a:                                                 *"
+echo "  *      Bienvenido a system:                                          *"
 echo "  *                                                                    *"
-echo "  *      ██████╗  █████╗ ███████╗██╗      █████╗ ██████╗ ███████╗      *"
-echo "  *      ██╔══██╗██╔══██╗╚══███╔╝██║     ██╔══██╗██╔══██╗██╔════╝      *"
-echo "  *      ██║  ██║███████║  ███╔╝ ██║     ███████║██████╔╝███████╗      *"
-echo "  *      ██║  ██║██╔══██║ ███╔╝  ██║     ██╔══██║██╔══██╗╚════██║      *"
-echo "  *      ██████╔╝██║  ██║███████╗███████╗██║  ██║██████╔╝███████║      *"
-echo "  *      ╚═════╝ ╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═╝╚═════╝ ╚══════╝      *"
+echo "  *      ██████╗  █████╗ ███████╗███╗   ███╗██╗███╗   ██╗              *"
+echo "  *      ██╔══██╗██╔══██╗╚══███╔╝████╗ ████║██║████╗  ██║              *"
+echo "  *      ██║  ██║███████║  ███╔╝ ██╔████╔██║██║██╔██╗ ██║              *"
+echo "  *      ██║  ██║██╔══██║ ███╔╝  ██║╚██╔╝██║██║██║╚██╗██║              *"
+echo "  *      ██████╔╝██║  ██║███████╗██║ ╚═╝ ██║██║██║ ╚████║              *"
+echo "  *      ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝              *"
 echo "  *                                                                    *"
 echo "  *      Autorización y acceso solo para personal autorizado.          *"
 echo "  *      Todas tas actividades en este sistema son monitoreadas        *"
@@ -243,9 +243,9 @@ echo "  **********************************************************************"
 echo ""
 EOF
 
-#chmod +x /etc/update-motd.d/00-welcomeDazmin
+  chmod +x /etc/update-motd.d/00-welcomeDazmin
 
-  chmod +x /etc/update-motd.d/*
+  # Configurar SSH para permitir el acceso root si está habilitado
   if [[ "${SSH_ROOT}" == "yes" ]]; then
     sed -i "s/#PermitRootLogin prohibit-password/PermitRootLogin yes/g" /etc/ssh/sshd_config
     systemctl restart sshd
