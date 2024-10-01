@@ -181,7 +181,7 @@ motd_ssh() {
   echo -e 'echo ""' > /etc/motd
 
   #script welcomeDazmin /etc/update-motd.d/00-welcomeDazmin
-  cat <<'EOF' > /etc/update-motd.d/00-welcomeDazmin
+  cat <<'EOF' > /etc/update-motd.d/00-welcomedazmin.sh
 #!/bin/bash
 
 echo "  **********************************************************************"
@@ -242,8 +242,8 @@ echo "  * "
 echo "  **********************************************************************"
 echo ""
 EOF
-
-  chmod +x /etc/update-motd.d/00-welcomeDazmin
+  chmod +x /etc/update-motd.d/*
+  chmod +x /etc/update-motd.d/00-welcomedazmin.sh
 
   # Configurar SSH para permitir el acceso root si está habilitado
   if [[ "${SSH_ROOT}" == "yes" ]]; then
